@@ -17,19 +17,31 @@ import java.util.Set;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(unique=true)
     private String username;
     private String fullName;
-    private String phone;
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accounts", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Account> accounts = new HashSet<>();
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "questions", fetch = FetchType.LAZY)
-    //private Set<SecretQuestion> secretQuestions = new HashSet<>();
-    // Need to re-think this
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "customer_security_questions",
+            joinColumns = { @JoinColumn(name = "customer_id") },
+            inverseJoinColumns = { @JoinColumn(name = "security_question_id") })
+    private Set<SecurityQuestion> securityQuestions = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiary_source")
+    private Set<Customer> beneficiaries = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer beneficiary_source;
+
     private String aadhar;
-    private String aadharUrl;
+    private byte[] aadharPicture;
     private String pan;
-    private String panUrl;
+    private byte[] panPicture;
 }
