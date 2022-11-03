@@ -1,4 +1,4 @@
-package com.example.bank.model;
+package com.banking.model;
 
 import lombok.*;
 

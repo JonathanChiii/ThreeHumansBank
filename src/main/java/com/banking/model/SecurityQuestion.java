@@ -1,4 +1,4 @@
-package com.example.bank.model;
+package com.banking.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
