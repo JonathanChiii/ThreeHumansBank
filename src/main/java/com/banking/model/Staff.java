@@ -28,15 +28,16 @@ public class Staff extends Employee{
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Admin admin;
+    @JoinColumn(name = "manager")
+    private Manager manager;
     private enum status{
         Enabled,
         Disabled,
     }
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "approved_by")
-    private Set<Transaction> transactions = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
+    private Set<Account> accountsApproved  = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "approved_by")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
     private Set<Beneficiary> beneficiaries = new HashSet<>();
 
     // ToDo

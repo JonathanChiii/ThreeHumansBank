@@ -26,7 +26,7 @@ public class SecurityQuestion {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             },
-            mappedBy = "security_questions")
+            mappedBy = "securityQuestions")
     @JsonIgnore
     //@JsonIgnore is used to ignore the logical property used in serialization and deserialization.
     private Set<Customer> customerSet = new HashSet<>();

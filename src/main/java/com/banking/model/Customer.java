@@ -43,7 +43,7 @@ public class Customer implements BankUser {
             inverseJoinColumns = { @JoinColumn(name = "security_question_id") })
     private Set<SecurityQuestion> securityQuestions = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiary_source")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiarySource")
     private Set<Beneficiary> beneficiaries = new HashSet<>();
 
     @Column(unique=true)

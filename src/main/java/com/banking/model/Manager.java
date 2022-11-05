@@ -9,17 +9,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "admin")
+@Table(name = "manager")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Admin extends Staff{
+public class Manager extends Staff{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "manager_seq")
     @GenericGenerator(
-            name = "admin_seq",
+            name = "manager_seq",
             strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
             parameters = {
                     @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
@@ -27,7 +27,7 @@ public class Admin extends Staff{
                     @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
     private String id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "managed_by")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager")
     private Set<Staff> staff = new HashSet<>();
 
     // ToDo

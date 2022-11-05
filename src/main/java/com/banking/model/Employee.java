@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Employee implements BankUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private String id;
 
     @Column(unique=true)
     private String username;

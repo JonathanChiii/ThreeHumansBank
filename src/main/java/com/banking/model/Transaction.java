@@ -27,8 +27,11 @@ public class Transaction {
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sourceAccount")
     private Account sourceAccount;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "destAccount")
     private Account destAccount;
 
     private String reason;

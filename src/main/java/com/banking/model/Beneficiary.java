@@ -20,11 +20,13 @@ public class Beneficiary extends Customer{
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Customer beneficiary_source;
+    @JoinColumn(name = "beneficiarySource")
+    private Customer beneficiarySource;
 
     Boolean isApproved;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "approvedBy")
     private Staff approvedBy;
 
     @CreationTimestamp

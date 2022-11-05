@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
-    List<Transaction> findAllBySourceAccount(Account account);
-    List<Transaction> findAllByDestAccount(Account account);
+    List<Transaction> findTransactionsBySourceAccount(Account account);
+    List<Transaction> findTransactionsByDestAccount(Account account);
 }

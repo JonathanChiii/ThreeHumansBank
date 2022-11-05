@@ -43,16 +43,18 @@ public class Account {
     Boolean approved;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Staff approvedBy;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "source_account")
-    private Set<Transaction> transferOut = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dest_account")
-    private Set<Transaction> transferIn = new HashSet<>();
+    @JoinColumn(name = "owner")
+    private Customer owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Customer owner;
+    @JoinColumn(name = "approvedBy")
+    private Staff approvedBy;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sourceAccount")
+    private Set<Transaction> transferOut = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "destAccount")
+    private Set<Transaction> transferIn = new HashSet<>();
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
