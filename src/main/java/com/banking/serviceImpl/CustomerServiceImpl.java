@@ -11,7 +11,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
+
+    @Override
+    public Customer findById(Long id) {
+        return customerRepository.getReferenceById(id);
+    }
+
+    @Override
+    public Customer findByUsername(String username) {
+        return customerRepository.findCustomerByUsername(username);
+    }
+
+    @Override
+    public Customer findByAadhaar(String Aadhaar) {
+        return customerRepository.findCustomerByAadhaar(Aadhaar);
+    }
+
+    @Override
+    public Customer findByPAN(String PAN) {
+        return customerRepository.findCustomerByPAN(PAN);
+    }
 
     @Override
     public void save(Customer customer) {
@@ -32,28 +52,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Boolean update(Customer customer) {
+    public Customer update(Customer customer) {
         Customer c = customerRepository.getReferenceById(customer.getId());
         if(c != null){
             customerRepository.save(customer);
-            return true;
-        }else return false;
+            return customer;
+        }else return null;
     }
 
     @Override
-    public Customer findById(Long id) {
-        return customerRepository.getReferenceById(id);
+    public void delete(Customer customer) {
+        customerRepository.delete(customer);
     }
 
-    @Override
-    public Customer findByUsername(String username) {
-        return customerRepository.findByUsername(username);
-    }
-
-    @Override
-    public Integer login(UserLogin userLogin) {
-        Customer customer = findByUsername(userLogin.getUsername());
-        // TODO
-        return null;
-    }
 }

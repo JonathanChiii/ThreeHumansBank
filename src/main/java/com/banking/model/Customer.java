@@ -40,8 +40,10 @@ public class Customer {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer beneficiary_source;
 
-    private String aadhar;
-    private byte[] aadharPicture;
-    private String pan;
-    private byte[] panPicture;
+    @Column(unique=true)
+    private String Aadhaar;
+    private byte[] AadhaarPicture;
+    @Column(unique=true)
+    private String PAN;
+    private byte[] PANPicture;
 }

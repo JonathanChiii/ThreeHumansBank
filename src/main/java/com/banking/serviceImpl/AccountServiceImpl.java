@@ -13,15 +13,39 @@ import java.util.UUID;
 @Service
 public class AccountServiceImpl implements AccountService {
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Override
     public Account findById(UUID id) {
-        return null;
+        return accountRepository.getReferenceById(id);
+    }
+
+    @Override
+    public Account findByNumber(Long number) {
+        return accountRepository.findAccountByNumber(number);
     }
 
     @Override
     public List<Account> findByOwner(Customer customer) {
-        return null;
+        return accountRepository.findAccountsByOwner(customer);
+    }
+
+    @Override
+    public void save(Account account) {
+        accountRepository.save(account);
+    }
+
+    @Override
+    public Account update(Account account) {
+        Account a = accountRepository.getReferenceById(account.getId());
+        if(a != null){
+            accountRepository.save(account);
+            return account;
+        }else return null;
+    }
+
+    @Override
+    public void delete(Account account) {
+        accountRepository.delete(account);
     }
 }

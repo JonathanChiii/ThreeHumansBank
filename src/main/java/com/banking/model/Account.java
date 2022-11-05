@@ -24,16 +24,17 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     @Column(unique=true)
-    private Integer number;
+    private Long number;
     private enum type {
         SB,
         CA,
     };
-    private float balance;
+    private Float balance;
     private enum status {
         Enabled,
         Disabled,
     };
+    Boolean approved;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "source_account")
     private Set<Transaction> transferOut = new HashSet<>();

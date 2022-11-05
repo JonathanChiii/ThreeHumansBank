@@ -9,5 +9,9 @@ import java.util.UUID;
 public interface AccountService {
 
     Account findById(UUID id);
-    List<Account> findByOwner(Customer customer);
+    Account findByNumber(Long number);
+    List<Account> findByOwner(Customer owner);
+    void save(Account account);
+    Account update(Account account);
+    void delete(Account account);
 }
