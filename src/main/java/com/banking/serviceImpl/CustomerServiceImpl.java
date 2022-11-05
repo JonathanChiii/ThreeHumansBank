@@ -33,12 +33,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void save(Customer customer) {
-        customerRepository.save(customer);
+    public Customer save(Customer customer) {
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void save(CustomerValidation customerValidation){
+    public Customer save(CustomerValidation customerValidation){
         Customer customer = new Customer("",customerValidation.getUsername(),
                 customerValidation.getFullName(), customerValidation.getPassword(),
                 null, customerValidation.getSecurityQuestions(), null,
@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
         //customer.setAccounts(existingCx.getAccounts());
         // TODO
         // Need to use session cookies to identify the customer
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override

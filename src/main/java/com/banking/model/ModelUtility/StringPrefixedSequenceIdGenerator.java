@@ -1,4 +1,4 @@
-package com.banking.model;
+package com.banking.model.ModelUtility;
 
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;

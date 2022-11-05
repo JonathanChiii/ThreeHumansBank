@@ -1,5 +1,7 @@
 package com.banking.model;
 
+import com.banking.model.ModelUtility.Status;
+import com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -30,10 +32,7 @@ public class Staff extends Employee{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager")
     private Manager manager;
-    private enum status{
-        Enabled,
-        Disabled,
-    }
+    private Status status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
     private Set<Account> accountsApproved  = new HashSet<>();
 

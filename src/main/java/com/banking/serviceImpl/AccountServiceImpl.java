@@ -1,5 +1,6 @@
 package com.banking.serviceImpl;
 
+import com.banking.dto.AccountValidation;
 import com.banking.model.Account;
 import com.banking.model.Customer;
 import com.banking.model.Staff;
@@ -47,8 +48,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void save(Account account) {
-        accountRepository.save(account);
+    public Account save(Account account) {
+        return accountRepository.save(account);
+    }
+
+    @Override
+    public Account save(AccountValidation accountValidation){
+        Account account = new Account("", accountValidation.getType(), Float.valueOf(0), null, false, null, null, null, null, null, accountValidation.getLastModified());
+        // ToDO
+        // Need to use session to identify the customer and perform deep copy
+        return accountRepository.save(account);
+
     }
 
     @Override

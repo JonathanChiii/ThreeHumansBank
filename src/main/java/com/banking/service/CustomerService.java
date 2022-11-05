@@ -9,8 +9,8 @@ public interface CustomerService {
     Customer getByUsername(String username);
     Customer getByAadhaar(String Aadhaar);
     Customer getByPAN(String PAN);
-    void save(Customer customer);
-    void save(CustomerValidation customerValidation);
+    Customer save(Customer customer);
+    Customer save(CustomerValidation customerValidation);
     Customer update(Customer customer);
     void delete(Customer customer);
 }

@@ -1,11 +1,13 @@
 package com.banking.model;
 
+import com.banking.model.ModelUtility.AccountType;
+import com.banking.model.ModelUtility.Status;
+import com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Parameter;
-
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,15 +33,12 @@ public class Account {
                     @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "AC"),
                     @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
     private String id;
-    private enum type {
-        SB,
-        CA,
-    };
+
+    private AccountType type;
+
     private Float balance;
-    private enum status {
-        Enabled,
-        Disabled,
-    };
+
+    private Status status;
     Boolean approved;
 
     @ManyToOne(fetch = FetchType.LAZY)

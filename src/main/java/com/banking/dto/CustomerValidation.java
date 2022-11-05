@@ -19,11 +19,8 @@ public class CustomerValidation {
     @NotEmpty
     private String password;
     private Set<SecurityQuestion> securityQuestions;
-    @NotEmpty
     private String Aadhaar;
-    @NotEmpty
     private byte[] AadhaarPicture;
-    @NotEmpty
     private String PAN;
     private byte[] PANPicture;
 }
