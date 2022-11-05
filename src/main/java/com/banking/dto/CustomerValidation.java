@@ -1,11 +1,9 @@
 package com.banking.dto;
 
-import com.banking.model.Customer;
 import com.banking.model.SecurityQuestion;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,12 +19,11 @@ public class CustomerValidation {
     @NotEmpty
     private String password;
     private Set<SecurityQuestion> securityQuestions;
-    private Set<Customer> beneficiaries = new HashSet<>();
     @NotEmpty
-    private String aadhar;
+    private String Aadhaar;
     @NotEmpty
-    private byte[] aadharPicture;
+    private byte[] AadhaarPicture;
     @NotEmpty
-    private String pan;
-    private byte[] panPicture;
+    private String PAN;
+    private byte[] PANPicture;
 }

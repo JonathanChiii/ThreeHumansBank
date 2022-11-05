@@ -2,13 +2,15 @@ package com.banking.serviceImpl;
 
 import com.banking.model.Account;
 import com.banking.model.Customer;
+import com.banking.model.Staff;
 import com.banking.repository.AccountRepository;
 import com.banking.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -16,18 +18,32 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public Account findById(UUID id) {
+    public Account getById(String id) {
         return accountRepository.getReferenceById(id);
     }
 
+
     @Override
-    public Account findByNumber(Long number) {
-        return accountRepository.findAccountByNumber(number);
+    public List<Account> getByOwner(Customer customer) {
+        return accountRepository.getAccountsByOwner(customer);
     }
 
     @Override
-    public List<Account> findByOwner(Customer customer) {
-        return accountRepository.findAccountsByOwner(customer);
+    public List<Account> getAllAccounts() {
+        List<Account> notApproved = accountRepository.getAccountsByApprovedIsFalse();
+        List<Account> approved = accountRepository.getAccountsByApprovedIsTrue();
+        return Stream.concat(notApproved.stream(), approved.stream())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Account> getNotApprovedAccount() {
+        return accountRepository.getAccountsByApprovedIsFalse();
+    }
+
+    @Override
+    public List<Account> getAccountsApprovedBy(Staff staff) {
+        return accountRepository.getAccountsByApprovedBy(staff);
     }
 
     @Override

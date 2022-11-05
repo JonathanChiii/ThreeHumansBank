@@ -2,15 +2,17 @@ package com.banking.service;
 
 import com.banking.model.Account;
 import com.banking.model.Customer;
+import com.banking.model.Staff;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface AccountService {
 
-    Account findById(UUID id);
-    Account findByNumber(Long number);
-    List<Account> findByOwner(Customer owner);
+    Account getById(String id);
+    List<Account> getByOwner(Customer owner);
+    List<Account> getAllAccounts();
+    List<Account> getNotApprovedAccount();
+    List<Account> getAccountsApprovedBy(Staff staff);
     void save(Account account);
     Account update(Account account);
     void delete(Account account);

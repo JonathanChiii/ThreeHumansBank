@@ -1,11 +1,11 @@
 package com.banking.model;
 
 import lombok.*;
-
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "customers")
@@ -14,10 +14,18 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Customer {
+@Inheritance(strategy = InheritanceType.JOINED) // Table Per Subclass Inheritance Mapping
+public class Customer implements BankUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
+    @GenericGenerator(
+            name = "customer_seq",
+            strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
+            parameters = {
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "CX"),
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
+    private String id;
     @Column(unique=true)
     private String username;
     private String fullName;
@@ -36,9 +44,7 @@ public class Customer {
     private Set<SecurityQuestion> securityQuestions = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiary_source")
-    private Set<Customer> beneficiaries = new HashSet<>();
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Customer beneficiary_source;
+    private Set<Beneficiary> beneficiaries = new HashSet<>();
 
     @Column(unique=true)
     private String Aadhaar;
