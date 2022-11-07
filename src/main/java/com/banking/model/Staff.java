@@ -17,9 +17,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) // Table Per Concrete Class Inheritance Mapping
 public class Staff extends Employee{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "staff_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(
             name = "staff_seq",
             strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
@@ -38,6 +39,4 @@ public class Staff extends Employee{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
     private Set<Beneficiary> beneficiaries = new HashSet<>();
-
-    // ToDo
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "beneficiary")
+@Table (name = "beneficiary")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,7 +16,7 @@ import java.util.Date;
 public class Beneficiary extends Customer{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -9,15 +9,15 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "account_transaction")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Transaction {
+public class AccountTransaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(
             name = "transaction_seq",
             strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
@@ -35,6 +35,7 @@ public class Transaction {
     @JoinColumn(name = "destAccount")
     private Account destAccount;
 
+    private Float amount;
     private String reason;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

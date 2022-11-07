@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customer")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +18,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED) // Table Per Subclass Inheritance Mapping
 public class Customer implements BankUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(
             name = "customer_seq",
             strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
@@ -34,22 +34,23 @@ public class Customer implements BankUser {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Account> accounts = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "customer_security_questions",
-            joinColumns = { @JoinColumn(name = "customer_id") },
-            inverseJoinColumns = { @JoinColumn(name = "security_question_id") })
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {
+//                    CascadeType.PERSIST,
+//                    CascadeType.MERGE
+//            })
+//    @JoinTable(name = "customer_security_questions",
+//            joinColumns = { @JoinColumn(name = "customer_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "security_question_id") })
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<SecurityQuestion> securityQuestions = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiarySource")
     private Set<Beneficiary> beneficiaries = new HashSet<>();
 
     @Column(unique=true)
-    private String Aadhaar;
-    private byte[] AadhaarPicture;
+    private String aadhaar;
+    private byte[] aadhaarPicture;
     @Column(unique=true)
     private String PAN;
     private byte[] PANPicture;

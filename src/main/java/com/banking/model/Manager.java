@@ -18,7 +18,7 @@ import java.util.Set;
 @ToString
 public class Manager extends Staff{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "manager_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(
             name = "manager_seq",
             strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",

@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "account")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +24,7 @@ import java.util.Set;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(
             name = "account_seq",
             strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
@@ -50,10 +50,10 @@ public class Account {
     private Staff approvedBy;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sourceAccount")
-    private Set<Transaction> transferOut = new HashSet<>();
+    private Set<AccountTransaction> transferOut = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "destAccount")
-    private Set<Transaction> transferIn = new HashSet<>();
+    private Set<AccountTransaction> transferIn = new HashSet<>();
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

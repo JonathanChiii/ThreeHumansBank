@@ -3,8 +3,10 @@ package com.banking.service;
 import com.banking.dto.CustomerValidation;
 import com.banking.model.Customer;
 
-public interface CustomerService {
+import java.util.List;
 
+public interface CustomerService {
+    List<Customer> getAllCustomers();
     Customer getById(String id);
     Customer getByUsername(String username);
     Customer getByAadhaar(String Aadhaar);
