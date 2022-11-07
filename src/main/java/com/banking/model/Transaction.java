@@ -8,31 +8,30 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table (name = "beneficiary")
+@Table(name = "account_transaction")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Beneficiary extends Customer{
-
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "beneficiarySource")
-    private Customer beneficiarySource;
-
-    Boolean isApproved;
+    @JoinColumn(name = "sourceAccount")
+    private Account sourceAccount;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "approvedBy")
-    private Staff approvedBy;
+    @JoinColumn(name = "destAccount")
+    private Account destAccount;
 
+    private Float amount;
+    private String reason;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;
+    private Date timestamp;
 }

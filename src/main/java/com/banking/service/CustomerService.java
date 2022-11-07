@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CustomerService {
     List<Customer> getAllCustomers();
-    Customer getById(String id);
+    Customer getById(Long id);
     Customer getByUsername(String username);
     Customer getByAadhaar(String Aadhaar);
     Customer getByPAN(String PAN);

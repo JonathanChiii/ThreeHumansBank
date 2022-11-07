@@ -2,12 +2,11 @@ package com.banking.model;
 
 import com.banking.model.ModelUtility.AccountType;
 import com.banking.model.ModelUtility.Status;
-import com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,14 +24,14 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(
-            name = "account_seq",
-            strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
-            parameters = {
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "AC"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
-    private String id;
+//    @GenericGenerator(
+//            name = "account_seq",
+//            strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
+//            parameters = {
+//                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+//                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "AC"),
+//                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
+    private Long id;
 
     private AccountType type;
 
@@ -41,6 +40,7 @@ public class Account {
     private Status status;
     Boolean approved;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private Customer owner;
@@ -49,11 +49,13 @@ public class Account {
     @JoinColumn(name = "approvedBy")
     private Staff approvedBy;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sourceAccount")
-    private Set<AccountTransaction> transferOut = new HashSet<>();
+    private Set<Transaction> transferOut = new HashSet<>();
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "destAccount")
-    private Set<AccountTransaction> transferIn = new HashSet<>();
+    private Set<Transaction> transferIn = new HashSet<>();
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

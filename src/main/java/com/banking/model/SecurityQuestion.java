@@ -1,6 +1,7 @@
 package com.banking.model;
 
 import com.banking.model.ModelUtility.Question;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -18,10 +19,14 @@ import java.util.Set;
 public class SecurityQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
+
+    @Column(nullable = false)
     private Question question;
+    @Column(nullable = false)
     private String answer;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer")
     private Customer customer;

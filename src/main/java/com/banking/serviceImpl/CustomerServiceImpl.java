@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getById(String id) {
+    public Customer getById(Long id) {
         return customerRepository.getReferenceById(id);
     }
 
@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer save(CustomerValidation customerValidation){
-        Customer customer = new Customer("",customerValidation.getUsername(),
+        Customer customer = new Customer(null,customerValidation.getUsername(),
                 customerValidation.getFullName(), customerValidation.getPassword(),
                 null, customerValidation.getSecurityQuestions(), null,
                 customerValidation.getAadhaar(), customerValidation.getPANPicture(), customerValidation.getPAN(), customerValidation.getPANPicture());

@@ -1,6 +1,7 @@
 package com.banking.model;
 
 import com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -19,18 +20,14 @@ import java.util.Set;
 public class Customer implements BankUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(
-            name = "customer_seq",
-            strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
-            parameters = {
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "CX"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
-    private String id;
-    @Column(unique=true)
+    private Long id;
+    @Column(unique=true, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String fullName;
+    @Column(nullable = false)
     private String password;
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Account> accounts = new HashSet<>();
 
@@ -42,16 +39,18 @@ public class Customer implements BankUser {
 //    @JoinTable(name = "customer_security_questions",
 //            joinColumns = { @JoinColumn(name = "customer_id") },
 //            inverseJoinColumns = { @JoinColumn(name = "security_question_id") })
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<SecurityQuestion> securityQuestions = new HashSet<>();
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiarySource")
     private Set<Beneficiary> beneficiaries = new HashSet<>();
 
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
     private String aadhaar;
     private byte[] aadhaarPicture;
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
     private String PAN;
     private byte[] PANPicture;
 }

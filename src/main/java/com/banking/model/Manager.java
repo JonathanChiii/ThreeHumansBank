@@ -1,6 +1,7 @@
 package com.banking.model;
 
 import com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -19,15 +20,9 @@ import java.util.Set;
 public class Manager extends Staff{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(
-            name = "manager_seq",
-            strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
-            parameters = {
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "AD"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
-    private String id;
+    private Long id;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager")
     private Set<Staff> staff = new HashSet<>();
 

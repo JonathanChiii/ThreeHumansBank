@@ -19,7 +19,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public Account getById(String id) {
+    public Account getById(Long id) {
         return accountRepository.getReferenceById(id);
     }
 
@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account save(AccountValidation accountValidation){
-        Account account = new Account("", accountValidation.getType(), Float.valueOf(0), null, false, null, null, null, null, null, accountValidation.getLastModified());
+        Account account = new Account(null, accountValidation.getType(), Float.valueOf(0), null, false, null, null, null, null, null, accountValidation.getLastModified());
         // ToDO
         // Need to use session to identify the customer and perform deep copy
         return accountRepository.save(account);

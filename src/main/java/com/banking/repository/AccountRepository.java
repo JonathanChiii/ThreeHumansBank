@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface AccountRepository extends JpaRepository<Account, String> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> getAccountsByOwner(Customer owner);
     List<Account> getAccountsByApprovedIsTrue();
     List<Account> getAccountsByApprovedIsFalse();

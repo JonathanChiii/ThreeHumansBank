@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AccountService {
 
-    Account getById(String id);
+    Account getById(Long id);
     List<Account> getByOwner(Customer owner);
     List<Account> getAllAccounts();
     List<Account> getNotApprovedAccount();

@@ -6,7 +6,7 @@ import com.banking.model.ModelUtility.AccountType;
 import com.banking.model.ModelUtility.Question;
 import com.banking.model.ModelUtility.Status;
 import com.banking.model.SecurityQuestion;
-import com.banking.model.AccountTransaction;
+import com.banking.model.Transaction;
 import com.banking.service.AccountService;
 import com.banking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,27 +41,26 @@ public class CustomerController {
     @GetMapping("/test1")
     public Customer test1() {
         // Creating customer
-        Customer customer1 = new Customer("", "Bank Of Jonathan", "Jonathan Chi", "0000", null, null, null, "Aadhaar1", null, "PAN1", null);
+        Customer customer1 = new Customer(null, "Bank Of Jonathan", "Jonathan Chi", "0000", null, null, null, "Aadhaar1", null, "PAN1", null);
 
         // Creating a set of accounts
-        Account account1 = new Account("", AccountType.CA, Float.valueOf("99.99"), Status.Enabled, false, customer1, null, null, null, null, null);
-        Account account2 = new Account("", AccountType.SB, Float.valueOf("100"), Status.Enabled, false, customer1, null, null, null, null, null);
+        Account account1 = new Account(null, AccountType.CA, Float.valueOf("99.99"), Status.Enabled, false, customer1, null, null, null, null, null);
+        Account account2 = new Account(null, AccountType.SB, Float.valueOf("100"), Status.Enabled, false, customer1, null, null, null, null, null);
         Set<Account> accounts = Set.of(account1, account2);
 
         // Creating a set of SecurityQuestions
-        SecurityQuestion securityQuestion1 = new SecurityQuestion("", Question.Q3, "Coldplay", customer1);
-        SecurityQuestion securityQuestion2 = new SecurityQuestion("", Question.Q2, "Wang", customer1);
+        SecurityQuestion securityQuestion1 = new SecurityQuestion(null, Question.Q3, "Coldplay", customer1);
+        SecurityQuestion securityQuestion2 = new SecurityQuestion(null, Question.Q2, "Wang", customer1);
         Set<SecurityQuestion> securityQuestions = Set.of(securityQuestion1, securityQuestion2);
 
         // Creating transactions
-        AccountTransaction accountTransaction1 = new AccountTransaction("", account1, account2, Float.valueOf("100"), "no reason", null);
+        Transaction transaction1 = new Transaction(null, account1, account2, Float.valueOf("100"), "no reason", null);
 
         // Set referencing attributes
         customer1.setAccounts(accounts);
-        account1.setTransferOut(Set.of(accountTransaction1));
+        account1.setTransferOut(Set.of(transaction1));
+        account2.setTransferIn(Set.of(transaction1));
         customer1.setSecurityQuestions(securityQuestions);
-
-
 
         return customerService.save(customer1);
     }
