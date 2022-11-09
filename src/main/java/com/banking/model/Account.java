@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,11 +33,16 @@ public class Account {
 //                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private AccountType type;
 
     private Float balance;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private Status status;
+
     Boolean approved;
 
     @JsonBackReference

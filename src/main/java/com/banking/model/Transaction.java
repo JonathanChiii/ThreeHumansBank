@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "account_transaction")
+@Table(name = "transactions")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,6 +31,7 @@ public class Transaction {
 
     private Float amount;
     private String reason;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;

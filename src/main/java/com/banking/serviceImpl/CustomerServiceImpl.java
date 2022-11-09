@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer save(CustomerValidation customerValidation){
         Customer customer = new Customer(null,customerValidation.getUsername(),
-                customerValidation.getFullName(), customerValidation.getPassword(),
+                customerValidation.getFullName(), customerValidation.getPassword(),null,
                 null, customerValidation.getSecurityQuestions(), null,
                 customerValidation.getAadhaar(), customerValidation.getPANPicture(), customerValidation.getPAN(), customerValidation.getPANPicture());
         //Customer existingCx = customerRepository.getByUsername(customer.getUsername());
