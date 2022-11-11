@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class Manager extends Staff{
-    @JsonManagedReference
+    //@JsonManagedReference(value = "manager-staff")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager")
     private Set<Staff> staff = new HashSet<>();
     public Manager(Long id, String username, String fullName, String password, Set<Role> roles, Manager manager, Status status, Set<Account> accountsApproved, Set<Beneficiary> beneficiariesApproved, Set<Staff> staff) {

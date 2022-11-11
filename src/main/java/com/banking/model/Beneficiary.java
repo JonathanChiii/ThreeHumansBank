@@ -20,14 +20,14 @@ public class Beneficiary extends Customer{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonBackReference
+    @JsonBackReference(value = "beneficiary-customer")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beneficiarySource")
     private Customer beneficiarySource;
 
     Boolean isApproved;
 
-    @JsonBackReference
+    @JsonBackReference(value = "beneficiary-staff")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "approvedBy")
     private Staff approvedBy;

@@ -19,8 +19,7 @@ import java.util.Set;
 @ToString
 @Inheritance(strategy = InheritanceType.JOINED) // Table Per subclass Inheritance Mapping
 public class Staff extends BankUser {
-
-    @JsonBackReference
+    @JsonBackReference(value = "staff-manager")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager")
     private Manager manager;
@@ -28,11 +27,11 @@ public class Staff extends BankUser {
     @Column(length = 20)
     private Status status;
 
-    @JsonManagedReference
+    //@JsonManagedReference(value = "staff-account")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
     private Set<Account> accountsApproved  = new HashSet<>();
 
-    @JsonManagedReference
+    //@JsonManagedReference(value = "staff-beneficiary")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
     private Set<Beneficiary> beneficiariesApproved = new HashSet<>();
 

@@ -26,7 +26,7 @@ public class SecurityQuestion {
     @Column(nullable = false)
     private String answer;
 
-    @JsonBackReference
+    @JsonBackReference(value = "security_question-customer")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer")
     private Customer customer;

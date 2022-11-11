@@ -19,12 +19,12 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonBackReference
+    @JsonBackReference(value = "transaction_out-account")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sourceAccount")
     private Account sourceAccount;
 
-    @JsonBackReference
+    @JsonBackReference(value = "transaction_in-account")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "destAccount")
     private Account destAccount;

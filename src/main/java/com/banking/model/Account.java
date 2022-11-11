@@ -45,7 +45,7 @@ public class Account {
 
     Boolean approved;
 
-    @JsonBackReference
+    @JsonBackReference(value = "account-owner")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private Customer owner;
@@ -54,11 +54,11 @@ public class Account {
     @JoinColumn(name = "approvedBy")
     private Staff approvedBy;
 
-    @JsonManagedReference
+    //@JsonManagedReference(value = "account-transaction_out")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sourceAccount")
     private Set<Transaction> transferOut = new HashSet<>();
 
-    @JsonManagedReference
+    //@JsonManagedReference(value = "account-transaction_in")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "destAccount")
     private Set<Transaction> transferIn = new HashSet<>();
 

@@ -63,7 +63,7 @@ public class CustomerController {
         return customerService.save(customer1);
     }
 
-    @PostMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Customer register(@RequestBody Customer customer){
         //ToDo
         return customerService.save(customer);

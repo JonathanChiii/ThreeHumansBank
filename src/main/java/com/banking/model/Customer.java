@@ -16,15 +16,15 @@ import java.util.Set;
 @ToString
 @Inheritance(strategy = InheritanceType.JOINED) // Table Per Subclass Inheritance Mapping
 public class Customer extends BankUser {
-    @JsonManagedReference
+    //@JsonManagedReference(value = "customer-account")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Account> accounts = new HashSet<>();
 
-    @JsonManagedReference
+    //@JsonManagedReference(value = "customer-security_question")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<SecurityQuestion> securityQuestions = new HashSet<>();
 
-    @JsonManagedReference
+    //@JsonManagedReference(value = "customer-beneficiary")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiarySource")
     private Set<Beneficiary> beneficiaries = new HashSet<>();
 
