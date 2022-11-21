@@ -1,5 +1,6 @@
 package com.banking.model;
 
+import com.banking.model.ModelUtility.Status;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -35,8 +36,8 @@ public class Customer extends BankUser {
     private String PAN;
     private byte[] PANPicture;
 
-    public Customer(Long id, String username, String fullName, String password, Set<Role> roles, Set<Account> accounts, Set<SecurityQuestion> securityQuestions, Set<Beneficiary> beneficiaries, String aadhaar, byte[] aadhaarPicture, String PAN, byte[] PANPicture) {
-        super(id, username, fullName, password, roles);
+    public Customer(Long id, String username, String fullName, String password, Status status, Set<Role> roles, Set<Account> accounts, Set<SecurityQuestion> securityQuestions, Set<Beneficiary> beneficiaries, String aadhaar, byte[] aadhaarPicture, String PAN, byte[] PANPicture) {
+        super(id, username, fullName, password, Status.Pending, roles);
         this.accounts = accounts;
         this.securityQuestions = securityQuestions;
         this.beneficiaries = beneficiaries;

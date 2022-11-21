@@ -2,11 +2,14 @@ package com.banking.model;
 
 import com.banking.model.ModelUtility.AccountType;
 import com.banking.model.ModelUtility.Status;
+import com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -23,16 +26,18 @@ import java.util.Set;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GenericGenerator(
-//            name = "account_seq",
-//            strategy = "org.thoughts.on.java.generators.StringPrefixedSequenceIdGenerator",
-//            parameters = {
-//                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
-//                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "AC"),
-//                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
+    @GenericGenerator(
+            name = "account_seq",
+            strategy = "com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator",
+            parameters = {
+                    //@Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "0"),
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "3HB_"),
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d") })
+    private String id;
 
+    @Column(unique = true, updatable = false)
+    private String accountNum;
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private AccountType type;
@@ -42,8 +47,6 @@ public class Account {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private Status status;
-
-    Boolean approved;
 
     @JsonBackReference(value = "account-owner")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -69,4 +72,5 @@ public class Account {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
+
 }

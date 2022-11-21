@@ -12,6 +12,7 @@ import org.hibernate.type.Type;
 import java.io.Serializable;
 import java.util.Properties;
 
+//https://stackoverflow.com/questions/55587520/is-there-a-way-to-create-string-sequence-using-generatedvalue-with-prefix
 
 public class StringPrefixedSequenceIdGenerator extends SequenceStyleGenerator {
 

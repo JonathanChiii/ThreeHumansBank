@@ -2,6 +2,7 @@ package com.banking.serviceImpl;
 
 import com.banking.dto.CustomerValidation;
 import com.banking.model.Customer;
+import com.banking.model.ModelUtility.Status;
 import com.banking.repository.CustomerRepository;
 import com.banking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer save(CustomerValidation customerValidation){
         Customer customer = new Customer(null,customerValidation.getUsername(),
-                customerValidation.getFullName(), customerValidation.getPassword(),null,
+                customerValidation.getFullName(), customerValidation.getPassword(), Status.Pending, null,
                 null, customerValidation.getSecurityQuestions(), null,
                 customerValidation.getAadhaar(), customerValidation.getPANPicture(), customerValidation.getPAN(), customerValidation.getPANPicture());
         //Customer existingCx = customerRepository.getByUsername(customer.getUsername());

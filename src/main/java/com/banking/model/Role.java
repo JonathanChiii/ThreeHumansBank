@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Role{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

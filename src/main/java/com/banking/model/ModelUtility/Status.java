@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Status {
     Enabled(1),
-    Disabled(0);
+    Disabled(0),
+    Pending(-1);
 
     private int statusCode;
 }

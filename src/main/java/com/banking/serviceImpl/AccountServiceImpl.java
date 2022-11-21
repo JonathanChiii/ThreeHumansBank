@@ -3,6 +3,7 @@ package com.banking.serviceImpl;
 import com.banking.dto.AccountValidation;
 import com.banking.model.Account;
 import com.banking.model.Customer;
+import com.banking.model.ModelUtility.Status;
 import com.banking.model.Staff;
 import com.banking.repository.AccountRepository;
 import com.banking.service.AccountService;
@@ -19,7 +20,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public Account getById(Long id) {
+    public Account getById(String id) {
         return accountRepository.getReferenceById(id);
     }
 
@@ -31,16 +32,28 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAllAccounts() {
-        List<Account> notApproved = accountRepository.getAccountsByApprovedIsFalse();
-        List<Account> approved = accountRepository.getAccountsByApprovedIsTrue();
-        return Stream.concat(notApproved.stream(), approved.stream())
-                .collect(Collectors.toList());
+//        List<Account> notApproved = accountRepository.getAccountsByApprovedIsFalse();
+//        List<Account> approved = accountRepository.getAccountsByApprovedIsTrue();
+//        return Stream.concat(notApproved.stream(), approved.stream())
+//                .collect(Collectors.toList());
+        return accountRepository.getAllByIdIsNotNull();
     }
 
     @Override
-    public List<Account> getNotApprovedAccount() {
-        return accountRepository.getAccountsByApprovedIsFalse();
+    public List<Account> getPendingAccount() {
+        return accountRepository.getAccountsByStatus(Status.Pending);
     }
+
+    @Override
+    public List<Account> getDisabledAccount() {
+        return accountRepository.getAccountsByStatus(Status.Disabled);
+    }
+
+    @Override
+    public List<Account> getEnabledAccount() {
+        return accountRepository.getAccountsByStatus(Status.Enabled);
+    }
+
 
     @Override
     public List<Account> getAccountsApprovedBy(Staff staff) {
@@ -54,7 +67,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account save(AccountValidation accountValidation){
-        Account account = new Account(null, accountValidation.getType(), Float.valueOf(0), null, false, null, null, null, null, null, accountValidation.getLastModified());
+        Account account = new Account(null, null, accountValidation.getType(), Float.valueOf(0), null, null, null, null, null, null, accountValidation.getLastModified());
         // ToDO
         // Need to use session to identify the customer and perform deep copy
         return accountRepository.save(account);

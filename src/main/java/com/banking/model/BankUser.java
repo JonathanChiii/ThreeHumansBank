@@ -1,5 +1,6 @@
 package com.banking.model;
 
+import com.banking.model.ModelUtility.Status;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -21,12 +22,15 @@ public class BankUser implements Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique=true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String username;
     @Column(nullable = false)
     private String fullName;
     @Column(nullable = false)
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Status status;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {

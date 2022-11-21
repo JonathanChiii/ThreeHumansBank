@@ -20,7 +20,7 @@ public class StaffController {
 
     @GetMapping("test1")
     public Staff test1(){
-        Staff staff = new Staff(null, "Staff1", "Chris Evans", "0000", Set.of(new Role(ERole.Customer), new Role(ERole.Staff)),null, Status.Enabled, null, null);
+        Staff staff = new Staff(null, "CaptainAmerica", "Chris Evans", "0000", Status.Enabled, Set.of(new Role(ERole.Customer), new Role(ERole.Staff)),null, null, null);
         return staffService.save(staff);
     }
 

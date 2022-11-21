@@ -23,9 +23,6 @@ public class Staff extends BankUser {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager")
     private Manager manager;
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private Status status;
 
     //@JsonManagedReference(value = "staff-account")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
@@ -35,10 +32,9 @@ public class Staff extends BankUser {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
     private Set<Beneficiary> beneficiariesApproved = new HashSet<>();
 
-    public Staff(Long id, String username, String fullName, String password, Set<Role> roles, Manager manager, Status status, Set<Account> accountsApproved, Set<Beneficiary> beneficiariesApproved) {
-        super(id, username, fullName, password, roles);
+    public Staff(Long id, String username, String fullName, String password, Status status, Set<Role> roles, Manager manager, Set<Account> accountsApproved, Set<Beneficiary> beneficiariesApproved) {
+        super(id, username, fullName, password, Status.Pending, roles);
         this.manager = manager;
-        this.status = status;
         this.accountsApproved = accountsApproved;
         this.beneficiariesApproved = beneficiariesApproved;
     }

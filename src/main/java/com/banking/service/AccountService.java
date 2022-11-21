@@ -9,10 +9,12 @@ import java.util.List;
 
 public interface AccountService {
 
-    Account getById(Long id);
+    Account getById(String id);
     List<Account> getByOwner(Customer owner);
     List<Account> getAllAccounts();
-    List<Account> getNotApprovedAccount();
+    List<Account> getPendingAccount();
+    List<Account> getDisabledAccount();
+    List<Account> getEnabledAccount();
     List<Account> getAccountsApprovedBy(Staff staff);
     Account save(Account account);
     Account save(AccountValidation accountValidation);
