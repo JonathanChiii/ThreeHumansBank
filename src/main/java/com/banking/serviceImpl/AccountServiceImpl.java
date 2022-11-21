@@ -74,4 +74,16 @@ public class AccountServiceImpl implements AccountService {
     public void delete(Account account) {
         accountRepository.delete(account);
     }
+
+
+	@Override
+	public Account getAccountStatement(Account account) {
+		Account ret = new Account();
+		ret.setId(account.getId());
+    	ret.setOwner(account.getOwner());
+    	ret.setBalance(account.getBalance());
+    	ret.setTransferIn(account.getTransferIn());
+    	ret.setTransferOut(account.getTransferOut());
+		return ret;
+	}
 }

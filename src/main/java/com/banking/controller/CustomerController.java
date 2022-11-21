@@ -39,7 +39,7 @@ public class CustomerController {
     @GetMapping("/test1")
     public Customer test1() {
         // Creating customer
-        Customer customer1 = new Customer(null, "Bank Of Jonathan", "Jonathan Chi", "0000", Set.of(new Role(ERole.Customer)), null, null, null, "Aadhaar1", null, "PAN1", null);
+        Customer customer1 = new Customer(null, "Bank Of Jonathan", "Jonathan Chi", "0000", Set.of(new Role(ERole.Customer)), null, null, null, "Aadhaar1", null, "PAN1", null, Customer.Status.ENABLE);
 
         // Creating a set of accounts
         Account account1 = new Account(null, AccountType.CA, Float.valueOf("99.99"), Status.Enabled, false, customer1, null, null, null, null, null);

@@ -16,6 +16,10 @@ import java.util.Set;
 @ToString
 @Inheritance(strategy = InheritanceType.JOINED) // Table Per Subclass Inheritance Mapping
 public class Customer extends BankUser {
+	
+	public enum Status {
+		ENABLE, DISABLE
+	}
     //@JsonManagedReference(value = "customer-account")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Account> accounts = new HashSet<>();
@@ -34,8 +38,12 @@ public class Customer extends BankUser {
     @Column(unique=true, nullable = false)
     private String PAN;
     private byte[] PANPicture;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+    private Status status;
 
-    public Customer(Long id, String username, String fullName, String password, Set<Role> roles, Set<Account> accounts, Set<SecurityQuestion> securityQuestions, Set<Beneficiary> beneficiaries, String aadhaar, byte[] aadhaarPicture, String PAN, byte[] PANPicture) {
+    public Customer(Long id, String username, String fullName, String password, Set<Role> roles, Set<Account> accounts, Set<SecurityQuestion> securityQuestions, Set<Beneficiary> beneficiaries, String aadhaar, byte[] aadhaarPicture, String PAN, byte[] PANPicture, Status status) {
         super(id, username, fullName, password, roles);
         this.accounts = accounts;
         this.securityQuestions = securityQuestions;
@@ -44,5 +52,6 @@ public class Customer extends BankUser {
         this.aadhaarPicture = aadhaarPicture;
         this.PAN = PAN;
         this.PANPicture = PANPicture;
+        this.status = status;
     }
 }

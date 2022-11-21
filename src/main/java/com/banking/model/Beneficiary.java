@@ -25,7 +25,7 @@ public class Beneficiary extends Customer{
     @JoinColumn(name = "beneficiarySource")
     private Customer beneficiarySource;
 
-    Boolean isApproved;
+    String isApproved;
 
     @JsonBackReference(value = "beneficiary-staff")
     @ManyToOne(fetch = FetchType.LAZY)

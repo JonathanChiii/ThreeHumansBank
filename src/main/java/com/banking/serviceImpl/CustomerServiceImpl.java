@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = new Customer(null,customerValidation.getUsername(),
                 customerValidation.getFullName(), customerValidation.getPassword(),null,
                 null, customerValidation.getSecurityQuestions(), null,
-                customerValidation.getAadhaar(), customerValidation.getPANPicture(), customerValidation.getPAN(), customerValidation.getPANPicture());
+                customerValidation.getAadhaar(), customerValidation.getPANPicture(), customerValidation.getPAN(), customerValidation.getPANPicture(), Customer.Status.ENABLE);
         //Customer existingCx = customerRepository.getByUsername(customer.getUsername());
         //customer.setAccounts(existingCx.getAccounts());
         // TODO

@@ -14,6 +14,7 @@ public interface AccountService {
     List<Account> getAllAccounts();
     List<Account> getNotApprovedAccount();
     List<Account> getAccountsApprovedBy(Staff staff);
+    Account getAccountStatement(Account account);
     Account save(Account account);
     Account save(AccountValidation accountValidation);
     Account update(Account account);
