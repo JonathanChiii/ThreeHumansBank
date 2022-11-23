@@ -1,13 +1,16 @@
 package com.banking.repository;
 
 import com.banking.model.Account;
+import com.banking.model.BankUser;
 import com.banking.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TransactionRepository extends JpaRepository<Transaction, String> {
-
-    List<Transaction> findTransactionBySourceAccount(Account account);
-    List<Transaction> findTransactionByDestAccount(Account account);
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+    List<Transaction> findTransactionsBySourceAccount(Account account);
+    List<Transaction> findTransactionsByDestAccount(Account account);
+    List<Transaction> findTransactionsByBankUser(BankUser bankUser);
+    List<Transaction> findAllByIdIsNotNull();
+    Transaction save(Transaction transaction);
 }

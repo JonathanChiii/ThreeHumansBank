@@ -15,7 +15,7 @@ public interface AccountService {
     List<Account> getPendingAccount();
     List<Account> getDisabledAccount();
     List<Account> getEnabledAccount();
-    List<Account> getAccountsApprovedBy(Staff staff);
+    List<Account> getByApprovedBy(Staff staff);
     Account save(Account account);
     Account save(AccountValidation accountValidation);
     Account update(Account account);

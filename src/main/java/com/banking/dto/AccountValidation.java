@@ -29,7 +29,5 @@ public class AccountValidation {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
-
-
 }
 

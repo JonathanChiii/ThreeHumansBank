@@ -36,8 +36,8 @@ public class Customer extends BankUser {
     private String PAN;
     private byte[] PANPicture;
 
-    public Customer(Long id, String username, String fullName, String password, Status status, Set<Role> roles, Set<Account> accounts, Set<SecurityQuestion> securityQuestions, Set<Beneficiary> beneficiaries, String aadhaar, byte[] aadhaarPicture, String PAN, byte[] PANPicture) {
-        super(id, username, fullName, password, Status.Pending, roles);
+    public Customer(Long id, String username, String fullName, String password, Status status, Set<Transaction> transactions, Set<Role> roles, Set<Account> accounts, Set<SecurityQuestion> securityQuestions, Set<Beneficiary> beneficiaries, String aadhaar, byte[] aadhaarPicture, String PAN, byte[] PANPicture) {
+        super(id, username, fullName, password, status, transactions, roles);
         this.accounts = accounts;
         this.securityQuestions = securityQuestions;
         this.beneficiaries = beneficiaries;

@@ -32,8 +32,8 @@ public class Staff extends BankUser {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "approvedBy")
     private Set<Beneficiary> beneficiariesApproved = new HashSet<>();
 
-    public Staff(Long id, String username, String fullName, String password, Status status, Set<Role> roles, Manager manager, Set<Account> accountsApproved, Set<Beneficiary> beneficiariesApproved) {
-        super(id, username, fullName, password, Status.Pending, roles);
+    public Staff(Long id, String username, String fullName, String password, Status status, Set<Transaction> transactions, Set<Role> roles, Manager manager, Set<Account> accountsApproved, Set<Beneficiary> beneficiariesApproved) {
+        super(id, username, fullName, password, status, transactions, roles);
         this.manager = manager;
         this.accountsApproved = accountsApproved;
         this.beneficiariesApproved = beneficiariesApproved;

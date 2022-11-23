@@ -4,6 +4,7 @@ import com.banking.model.ModelUtility.AccountType;
 import com.banking.model.ModelUtility.Status;
 import com.banking.model.ModelUtility.StringPrefixedSequenceIdGenerator;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -35,9 +36,6 @@ public class Account {
                     @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "3HB_"),
                     @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d") })
     private String id;
-
-    @Column(unique = true, updatable = false)
-    private String accountNum;
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private AccountType type;
@@ -49,8 +47,10 @@ public class Account {
     private Status status;
 
     @JsonBackReference(value = "account-owner")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "owner")
+
     private Customer owner;
 
     @ManyToOne(fetch = FetchType.LAZY)

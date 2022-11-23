@@ -20,7 +20,7 @@ public class Manager extends Staff{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager")
     private Set<Staff> staff = new HashSet<>();
     public Manager(Long id, String username, String fullName, String password, Set<Role> roles, Manager manager, Status status, Set<Account> accountsApproved, Set<Beneficiary> beneficiariesApproved, Set<Staff> staff) {
-        super(id, username, fullName, password, Status.Enabled, roles, manager, accountsApproved, beneficiariesApproved);
+        super(id, username, fullName, password, status, null, roles, manager, accountsApproved, beneficiariesApproved);
         this.staff = staff;
     }
 }

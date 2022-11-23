@@ -25,6 +25,11 @@ public class Beneficiary extends Customer{
     @JoinColumn(name = "beneficiarySource")
     private Customer beneficiarySource;
 
+    //Unidirectional
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "primary_account", referencedColumnName = "id")
+    private Account primaryAccount;
+
     Boolean isApproved;
 
     @JsonBackReference(value = "beneficiary-staff")

@@ -6,17 +6,16 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
-@Data
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class CustomerValidation {
-    @NotEmpty
+    @NotEmpty(message = "User name cannot be empty.")
     private String username;
-    @NotEmpty
+    @NotEmpty(message = "Full name cannot be empty.")
     private String fullName;
-    @NotEmpty
+    @NotEmpty(message = "Password cannot be empty.")
     private String password;
     private Set<SecurityQuestion> securityQuestions;
     private String Aadhaar;

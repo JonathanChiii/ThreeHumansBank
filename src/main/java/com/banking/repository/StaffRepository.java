@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface StaffRepository extends JpaRepository<Staff, Long> {
     Staff getStaffByUsername(String username);
-    Staff getStaffByFullName(String fullName);
+    List<Staff> getStaffByFullName(String fullName);
     List<Staff> getAllByIdIsNotNull();
 }

@@ -10,6 +10,7 @@ import com.banking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,11 +40,13 @@ public class CustomerController {
     @GetMapping("/test1")
     public Customer test1() {
         // Creating customer
-        Customer customer1 = new Customer(null, "JonathanNoMoney", "Jonathan Chi", "0000", Status.Pending, Set.of(new Role(ERole.Customer)), null, null, null, "Aadhaar1", null, "PAN1", null);
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(new Role(ERole.Customer));
+        Customer customer1 = new Customer(null, "JonathanNoMoney", "Jonathan Chi", "0000", Status.Pending, null, roleSet, null, null, null, "Aadhaar1", null, "PAN1", null);
 
         // Creating a set of accounts
-        Account account1 = new Account(null, null, AccountType.CA, Float.valueOf("99.99"), null, customer1, null, null, null, null, null);
-        Account account2 = new Account(null, null, AccountType.SB, Float.valueOf("100"), null, customer1, null, null, null, null, null);
+        Account account1 = new Account(null, AccountType.CA, Float.valueOf("99.99"), null, customer1, null, null, null, null, null);
+        Account account2 = new Account(null, AccountType.SB, Float.valueOf("100"), null, customer1, null, null, null, null, null);
         Set<Account> accounts = Set.of(account1, account2);
 
         // Creating a set of SecurityQuestions
@@ -52,7 +55,7 @@ public class CustomerController {
         Set<SecurityQuestion> securityQuestions = Set.of(securityQuestion1, securityQuestion2);
 
         // Creating transactions
-        Transaction transaction1 = new Transaction(null, account1, account2, Float.valueOf("100"), "no reason", null);
+        Transaction transaction1 = new Transaction(null, account1.getOwner(), account1, account2, Float.valueOf("100"), "no reason", null);
 
         // Set referencing attributes
         customer1.setAccounts(accounts);
@@ -63,7 +66,7 @@ public class CustomerController {
         return customerService.save(customer1);
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.PUT)
     public Customer register(@RequestBody Customer customer){
         //ToDo
         return customerService.save(customer);

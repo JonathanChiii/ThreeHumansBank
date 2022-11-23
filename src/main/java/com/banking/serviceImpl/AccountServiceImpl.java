@@ -56,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public List<Account> getAccountsApprovedBy(Staff staff) {
+    public List<Account> getByApprovedBy(Staff staff) {
         return accountRepository.getAccountsByApprovedBy(staff);
     }
 
@@ -67,7 +67,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account save(AccountValidation accountValidation){
-        Account account = new Account(null, null, accountValidation.getType(), Float.valueOf(0), null, null, null, null, null, null, accountValidation.getLastModified());
+        Account account = new Account(null, accountValidation.getType(), Float.valueOf(0), null, null, null, null, null, null, accountValidation.getLastModified());
         // ToDO
         // Need to use session to identify the customer and perform deep copy
         return accountRepository.save(account);
@@ -78,9 +78,9 @@ public class AccountServiceImpl implements AccountService {
     public Account update(Account account) {
         Account a = accountRepository.getReferenceById(account.getId());
         if(a != null){
-            accountRepository.save(account);
-            return account;
-        }else return null;
+            return accountRepository.save(account);
+        }
+        return null;
     }
 
     @Override

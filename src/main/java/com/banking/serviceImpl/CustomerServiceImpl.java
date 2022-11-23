@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer save(CustomerValidation customerValidation){
         Customer customer = new Customer(null,customerValidation.getUsername(),
-                customerValidation.getFullName(), customerValidation.getPassword(), Status.Pending, null,
+                customerValidation.getFullName(), customerValidation.getPassword(), Status.Pending, null, null,
                 null, customerValidation.getSecurityQuestions(), null,
                 customerValidation.getAadhaar(), customerValidation.getPANPicture(), customerValidation.getPAN(), customerValidation.getPANPicture());
         //Customer existingCx = customerRepository.getByUsername(customer.getUsername());
@@ -62,9 +62,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer update(Customer customer) {
         Customer c = customerRepository.getReferenceById(customer.getId());
         if(c != null){
-            customerRepository.save(customer);
-            return customer;
-        }else return null;
+            return customerRepository.save(customer);
+        }
+        return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.banking.model;
 
+import com.banking.model.ModelUtility.ERole;
 import com.banking.model.ModelUtility.Status;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -32,6 +33,10 @@ public class BankUser implements Bank {
     @Column(length = 20)
     private Status status;
 
+    //@JsonManagedReference(value = "bank_user-transaction")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bankUser")
+    private Set<Transaction> transactions;
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -41,5 +46,5 @@ public class BankUser implements Bank {
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     @NotEmpty
-    Set<Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 }
