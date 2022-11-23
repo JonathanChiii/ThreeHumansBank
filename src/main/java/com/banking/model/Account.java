@@ -48,9 +48,7 @@ public class Account {
 
     @JsonBackReference(value = "account-owner")
     @ManyToOne()
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "owner")
-
     private Customer owner;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -55,7 +55,7 @@ public class CustomerController {
         Set<SecurityQuestion> securityQuestions = Set.of(securityQuestion1, securityQuestion2);
 
         // Creating transactions
-        Transaction transaction1 = new Transaction(null, account1.getOwner(), account1, account2, Float.valueOf("100"), "no reason", null);
+        Transaction transaction1 = new Transaction(null, account1.getOwner(), account1, account2, Float.valueOf("10"), "no reason", null);
 
         // Set referencing attributes
         customer1.setAccounts(accounts);

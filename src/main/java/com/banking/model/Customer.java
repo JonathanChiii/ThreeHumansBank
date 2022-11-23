@@ -1,6 +1,7 @@
 package com.banking.model;
 
 import com.banking.model.ModelUtility.Status;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED) // Table Per Subclass Inheritance Mapping
 public class Customer extends BankUser {
     //@JsonManagedReference(value = "customer-account")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Account> accounts = new HashSet<>();
 

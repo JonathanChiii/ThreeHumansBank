@@ -21,4 +21,9 @@ public class BankUserServiceImpl implements BankUserService {
     public BankUser getByUsername(String username) {
         return bankUserRepository.getBankUserByUsername(username);
     }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return bankUserRepository.existsByUsername(username);
+    }
 }
