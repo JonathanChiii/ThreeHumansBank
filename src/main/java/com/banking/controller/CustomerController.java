@@ -75,7 +75,7 @@ public class CustomerController {
     @GetMapping("/getall")
     public List<Customer> getAllCustomer(){
         //ToDo
-        return customerService.getAllCustomers();
+        return customerService.findAllCustomers();
     }
 
 }

@@ -8,13 +8,12 @@ import com.banking.model.Staff;
 import java.util.List;
 
 public interface BeneficiaryService {
-    Beneficiary getById(Long id);
-    List<Beneficiary> getByBeneficiarySource(Customer customer);
-    List<Beneficiary> getByNotApproved();
-    List<Beneficiary> getByApprovedBy(Staff staff);
+    Beneficiary findById(Long id);
+    Beneficiary findByUsername(String username);
+    List<Beneficiary> findByBeneficiarySource(Customer customer);
+    List<Beneficiary> findByNotApproved();
+    List<Beneficiary> findByApprovedBy(Staff staff);
 
     Beneficiary save(Beneficiary beneficiary);
-    Beneficiary save(BeneficiaryValidation beneficiaryValidation);
     Beneficiary update(Beneficiary beneficiary);
-    void delete(Beneficiary beneficiary);
 }

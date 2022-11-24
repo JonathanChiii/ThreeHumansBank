@@ -20,58 +20,45 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public Account getById(String id) {
+    public Account findById(String id) {
         return accountRepository.getReferenceById(id);
     }
 
 
     @Override
-    public List<Account> getByOwner(Customer customer) {
-        return accountRepository.getAccountsByOwner(customer);
+    public List<Account> findByOwner(Customer customer) {
+        return accountRepository.findAccountsByOwner(customer);
     }
 
     @Override
-    public List<Account> getAllAccounts() {
-//        List<Account> notApproved = accountRepository.getAccountsByApprovedIsFalse();
-//        List<Account> approved = accountRepository.getAccountsByApprovedIsTrue();
-//        return Stream.concat(notApproved.stream(), approved.stream())
-//                .collect(Collectors.toList());
-        return accountRepository.getAllByIdIsNotNull();
+    public List<Account> findAllAccounts() {
+        return accountRepository.findAll();
     }
 
     @Override
-    public List<Account> getPendingAccount() {
-        return accountRepository.getAccountsByStatus(Status.Pending);
+    public List<Account> findPendingAccounts() {
+        return accountRepository.findAccountsByStatus(Status.Pending);
     }
 
     @Override
-    public List<Account> getDisabledAccount() {
-        return accountRepository.getAccountsByStatus(Status.Disabled);
+    public List<Account> findDisabledAccounts() {
+        return accountRepository.findAccountsByStatus(Status.Disabled);
     }
 
     @Override
-    public List<Account> getEnabledAccount() {
-        return accountRepository.getAccountsByStatus(Status.Enabled);
+    public List<Account> findEnabledAccounts() {
+        return accountRepository.findAccountsByStatus(Status.Enabled);
     }
 
 
     @Override
-    public List<Account> getByApprovedBy(Staff staff) {
-        return accountRepository.getAccountsByApprovedBy(staff);
+    public List<Account> findByApprovedBy(Staff staff) {
+        return accountRepository.findAccountsByApprovedBy(staff);
     }
 
     @Override
     public Account save(Account account) {
         return accountRepository.save(account);
-    }
-
-    @Override
-    public Account save(AccountValidation accountValidation){
-        Account account = new Account(null, accountValidation.getType(), Float.valueOf(0), null, null, null, null, null, null, accountValidation.getLastModified());
-        // ToDO
-        // Need to use session to identify the customer and perform deep copy
-        return accountRepository.save(account);
-
     }
 
     @Override
@@ -83,8 +70,4 @@ public class AccountServiceImpl implements AccountService {
         return null;
     }
 
-    @Override
-    public void delete(Account account) {
-        accountRepository.delete(account);
-    }
 }

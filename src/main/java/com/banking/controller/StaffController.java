@@ -57,13 +57,13 @@ public class StaffController {
 
     @RequestMapping(value = "/account/:accountNo", method = RequestMethod.GET)
     public Account getAccountStatement(@PathVariable("accountNo") String accountNo){
-        Account account = accountService.getById(accountNo);
+        Account account = accountService.findById(accountNo);
         return account;
     }
 
     @RequestMapping(value = "/beneficiary", method = RequestMethod.GET)
     public List<Beneficiary> getBeneficiary(){
-        return beneficiaryService.getByNotApproved();
+        return beneficiaryService.findByNotApproved();
     }
 
     @RequestMapping(value = "/beneficiary", method = RequestMethod.PUT)
@@ -77,7 +77,7 @@ public class StaffController {
 
     @RequestMapping(value = "/accounts/approve", method = RequestMethod.GET)
     public List<Account> getPendingAccounts() {
-        return accountService.getPendingAccount();
+        return accountService.findPendingAccounts();
     }
 
     @RequestMapping(value = "/accounts/approve", method = RequestMethod.PUT)
@@ -89,14 +89,14 @@ public class StaffController {
 
     @RequestMapping(value = "/customer", method = RequestMethod.GET)
     public List<Customer> getAllCustomer() {
-        return customerService.getAllCustomers();
+        return customerService.findAllCustomers();
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.PUT)
     public ResponseEntity<String> changeCustomerStatus(@RequestBody @Valid ChangeBankUserStatus changeBankUserStatus) {
-        BankUser bankUser = bankUserService.getById(changeBankUserStatus.getId());
+        BankUser bankUser = bankUserService.findById(changeBankUserStatus.getId());
         if(! bankUser.getRoles().contains(new Role(ERole.Staff))){
-            Customer targetCustomer = customerService.getById(changeBankUserStatus.getId());
+            Customer targetCustomer = customerService.findById(changeBankUserStatus.getId());
             targetCustomer.setStatus(changeBankUserStatus.getStatus());
             customerService.save(targetCustomer);
             return ResponseEntity.status(HttpStatus.OK).body("Customer status changed successfully.\n");
@@ -106,16 +106,16 @@ public class StaffController {
 
     @RequestMapping(value = "/customer/:customerID", method = RequestMethod.GET)
     public Customer getCustomer(@PathVariable("customerID") Long Id){
-        return customerService.getById(Id);
+        return customerService.findById(Id);
     }
 
     @RequestMapping(value = "/transfer", method = RequestMethod.PUT)
     public ResponseEntity<String> transfer(@RequestBody @Valid TransactionValidation transactionValidation) {
-        Account srcAccount = accountService.getById(transactionValidation.getSourceAccountNumber());
+        Account srcAccount = accountService.findById(transactionValidation.getSourceAccountNumber());
         if(srcAccount == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Source account does not exist.\n");
         }
-        Account destAccount = accountService.getById(transactionValidation.getDestAccountNumber());
+        Account destAccount = accountService.findById(transactionValidation.getDestAccountNumber());
         if(destAccount == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Destination account does not exist.\n");
         }

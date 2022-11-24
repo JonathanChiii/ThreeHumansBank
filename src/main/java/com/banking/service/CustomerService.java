@@ -6,13 +6,11 @@ import com.banking.model.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    List<Customer> getAllCustomers();
-    Customer getById(Long id);
-    Customer getByUsername(String username);
-    Customer getByAadhaar(String Aadhaar);
-    Customer getByPAN(String PAN);
+    List<Customer> findAllCustomers();
+    Customer findById(Long id);
+    Customer findByUsername(String username);
+    Customer findByAadhaar(String Aadhaar);
+    Customer findByPAN(String PAN);
     Customer save(Customer customer);
-    Customer save(CustomerValidation customerValidation);
     Customer update(Customer customer);
-    void delete(Customer customer);
 }

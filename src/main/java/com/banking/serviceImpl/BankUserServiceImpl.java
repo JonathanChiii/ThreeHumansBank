@@ -6,6 +6,8 @@ import com.banking.service.BankUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BankUserServiceImpl implements BankUserService {
 
@@ -13,13 +15,13 @@ public class BankUserServiceImpl implements BankUserService {
     BankUserRepository bankUserRepository;
 
     @Override
-    public BankUser getById(Long id) {
+    public BankUser findById(Long id) {
         return bankUserRepository.getReferenceById(id);
     }
 
     @Override
-    public BankUser getByUsername(String username) {
-        return bankUserRepository.getBankUserByUsername(username);
+    public BankUser findByUsername(String username) {
+        return bankUserRepository.findBankUserByUsername(username).orElse(null);
     }
 
     @Override
