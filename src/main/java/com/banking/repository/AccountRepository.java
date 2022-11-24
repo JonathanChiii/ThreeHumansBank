@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AccountRepository extends JpaRepository<Account, String> {
-    List<Account> getAccountsByOwner(Customer owner);
-    List<Account> getAccountsByStatus(Status status);
-    List<Account> getAllByIdIsNotNull();
-    List<Account> getAccountsByApprovedBy(Staff staff);
+    List<Account> findAccountsByOwner(Customer customer);
+    List<Account> findAccountsByStatus(Status status);
+    List<Account> findAccountsByApprovedBy(Staff staff);
 }

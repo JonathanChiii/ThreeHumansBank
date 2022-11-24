@@ -11,6 +11,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findTransactionsBySourceAccount(Account account);
     List<Transaction> findTransactionsByDestAccount(Account account);
     List<Transaction> findTransactionsByBankUser(BankUser bankUser);
-    List<Transaction> findAllByIdIsNotNull();
     Transaction save(Transaction transaction);
 }

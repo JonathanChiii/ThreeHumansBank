@@ -18,34 +18,28 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
     private BeneficiaryRepository beneficiaryRepository;
 
     @Override
-    public Beneficiary getById(Long id) {
+    public Beneficiary findById(Long id) {
         return beneficiaryRepository.getReferenceById(id);
     }
 
     @Override
-    public List<Beneficiary> getByBeneficiarySource(Customer customer) {
-        return beneficiaryRepository.getBeneficiariesByBeneficiarySource(customer);
+    public List<Beneficiary> findByBeneficiarySource(Customer customer) {
+        return beneficiaryRepository.findBeneficiariesByBeneficiarySource(customer);
     }
 
     @Override
-    public List<Beneficiary> getByNotApproved() {
-        return beneficiaryRepository.getBeneficiariesByIsApprovedIs(false);
+    public List<Beneficiary> findByNotApproved() {
+        return beneficiaryRepository.findBeneficiariesByIsApprovedIs(false);
     }
 
     @Override
-    public List<Beneficiary> getByApprovedBy(Staff staff) {
-        return beneficiaryRepository.getBeneficiariesByIsApprovedIs(true);
+    public List<Beneficiary> findByApprovedBy(Staff staff) {
+        return beneficiaryRepository.findBeneficiariesByApprovedBy(staff);
     }
 
     @Override
     public Beneficiary save(Beneficiary beneficiary) {
-        return beneficiaryRepository.save(beneficiary);
-    }
-
-    @Override
-    public Beneficiary save(BeneficiaryValidation beneficiaryValidation) {
-        // ToDo
-        return null;
+            return beneficiaryRepository.save(beneficiary);
     }
 
     @Override
@@ -55,10 +49,5 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
             return beneficiaryRepository.save(beneficiary);
         }
         return null;
-    }
-
-    @Override
-    public void delete(Beneficiary beneficiary) {
-        beneficiaryRepository.delete(beneficiary);
     }
 }

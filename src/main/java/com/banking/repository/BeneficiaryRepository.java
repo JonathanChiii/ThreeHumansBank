@@ -10,8 +10,7 @@ import com.banking.model.Beneficiary;
 
 public interface BeneficiaryRepository extends JpaRepository<Beneficiary, Long> {
 
-    List<Beneficiary> getBeneficiariesByBeneficiarySource(Customer customer);
-    List<Beneficiary> getAllByIdIsNotNull();
-    List<Beneficiary> getBeneficiariesByApprovedBy(Staff staff);
-    List<Beneficiary> getBeneficiariesByIsApprovedIs(Boolean isApproved);
+    List<Beneficiary> findBeneficiariesByBeneficiarySource(Customer customer);
+    List<Beneficiary> findBeneficiariesByApprovedBy(Staff staff);
+    List<Beneficiary> findBeneficiariesByIsApprovedIs(Boolean isApproved);
 }

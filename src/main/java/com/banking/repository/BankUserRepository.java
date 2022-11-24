@@ -4,6 +4,7 @@ import com.banking.model.BankUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BankUserRepository extends JpaRepository<BankUser, Long> {
-    BankUser getBankUserByUsername(String username);
+    BankUser findBankUserByUsername(String username);
+    BankUser findBankUserByFullName(String fullName);
     Boolean existsByUsername(String username);
 }

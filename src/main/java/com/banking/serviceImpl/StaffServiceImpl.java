@@ -1,5 +1,6 @@
 package com.banking.serviceImpl;
 
+import com.banking.model.Manager;
 import com.banking.model.Staff;
 import com.banking.repository.StaffRepository;
 import com.banking.service.StaffService;
@@ -14,18 +15,23 @@ public class StaffServiceImpl implements StaffService {
     private StaffRepository staffRepository;
 
     @Override
-    public List<Staff> getAllStaff() {
-        return staffRepository.getAllByIdIsNotNull();
+    public List<Staff> findAllStaff() {
+        return staffRepository.findAll();
     }
 
     @Override
-    public Staff getById(Long id) {
+    public Staff findById(Long id) {
         return staffRepository.getReferenceById(id);
     }
 
     @Override
-    public Staff getByUsername(String username) {
-        return staffRepository.getStaffByUsername(username);
+    public Staff findByUsername(String username) {
+        return staffRepository.findStaffByUsername(username);
+    }
+
+    @Override
+    public List<Staff> findByManager(Manager manager) {
+        return staffRepository.findStaffByManager(manager);
     }
 
     @Override
@@ -37,13 +43,7 @@ public class StaffServiceImpl implements StaffService {
     public Staff update(Staff staff) {
         Staff s = staffRepository.getReferenceById(staff.getId());
         if(s != null){
-            staffRepository.save(staff);
-            return staff;
-        }else return null;
-    }
-
-    @Override
-    public void delete(Staff staff) {
-        staffRepository.delete(staff);
+            return staffRepository.save(staff);
+        }return null;
     }
 }

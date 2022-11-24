@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    List<Customer> getAllByIdIsNotNull(); // Haven't found any better way to get all customers
-    Customer getCustomerByUsername(String username);
-    Customer getCustomerByAadhaar(String Aadhaar);
-    Customer getCustomerByPAN(String PAN);
+    Customer findCustomerByUsername(String username);
+    Customer findCustomerByAadhaar(String Aadhaar);
+    Customer findCustomerByPAN(String PAN);
 }

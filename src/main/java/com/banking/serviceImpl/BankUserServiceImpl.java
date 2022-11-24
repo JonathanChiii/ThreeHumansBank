@@ -13,13 +13,18 @@ public class BankUserServiceImpl implements BankUserService {
     BankUserRepository bankUserRepository;
 
     @Override
-    public BankUser getById(Long id) {
+    public BankUser findById(Long id) {
         return bankUserRepository.getReferenceById(id);
     }
 
     @Override
-    public BankUser getByUsername(String username) {
-        return bankUserRepository.getBankUserByUsername(username);
+    public BankUser findByUsername(String username) {
+        return bankUserRepository.findBankUserByUsername(username);
+    }
+
+    @Override
+    public BankUser findByFullName(String fullName) {
+        return bankUserRepository.findBankUserByFullName(fullName);
     }
 
     @Override

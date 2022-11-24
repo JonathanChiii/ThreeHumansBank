@@ -16,45 +16,32 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> getAllCustomers() {
-        return customerRepository.getAllByIdIsNotNull();
+    public List<Customer> findAllCustomers() {
+        return customerRepository.findAll();
     }
 
     @Override
-    public Customer getById(Long id) {
+    public Customer findById(Long id) {
         return customerRepository.getReferenceById(id);
     }
 
     @Override
-    public Customer getByUsername(String username) {
-        return customerRepository.getCustomerByUsername(username);
+    public Customer findByUsername(String username) {
+        return customerRepository.findCustomerByUsername(username);
     }
 
     @Override
-    public Customer getByAadhaar(String Aadhaar) {
-        return customerRepository.getCustomerByAadhaar(Aadhaar);
+    public Customer findByAadhaar(String Aadhaar) {
+        return customerRepository.findCustomerByAadhaar(Aadhaar);
     }
 
     @Override
-    public Customer getByPAN(String PAN) {
-        return customerRepository.getCustomerByPAN(PAN);
+    public Customer findByPAN(String PAN) {
+        return customerRepository.findCustomerByPAN(PAN);
     }
 
     @Override
     public Customer save(Customer customer) {
-        return customerRepository.save(customer);
-    }
-
-    @Override
-    public Customer save(CustomerValidation customerValidation){
-        Customer customer = new Customer(null,customerValidation.getUsername(),
-                customerValidation.getFullName(), customerValidation.getPassword(), Status.Pending, null, null,
-                null, customerValidation.getSecurityQuestions(), null,
-                customerValidation.getAadhaar(), customerValidation.getPANPicture(), customerValidation.getPAN(), customerValidation.getPANPicture());
-        //Customer existingCx = customerRepository.getByUsername(customer.getUsername());
-        //customer.setAccounts(existingCx.getAccounts());
-        // TODO
-        // Need to use session cookies to identify the customer
         return customerRepository.save(customer);
     }
 
@@ -65,10 +52,5 @@ public class CustomerServiceImpl implements CustomerService {
             return customerRepository.save(customer);
         }
         return null;
-    }
-
-    @Override
-    public void delete(Customer customer) {
-        customerRepository.delete(customer);
     }
 }
