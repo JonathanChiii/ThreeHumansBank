@@ -87,11 +87,6 @@ public class StaffController {
 
     }
 
-    @RequestMapping(value = "/customer", method = RequestMethod.GET)
-    public List<Customer> getAllCustomer() {
-        return customerService.findAllCustomers();
-    }
-
     @RequestMapping(value = "/customer", method = RequestMethod.PUT)
     public ResponseEntity<String> changeCustomerStatus(@RequestBody @Valid ChangeBankUserStatus changeBankUserStatus) {
         BankUser bankUser = bankUserService.findById(changeBankUserStatus.getId());

@@ -47,4 +47,12 @@ public class BankUser implements Bank {
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     @NotEmpty
     private Set<Role> roles = new HashSet<>();
+
+    public BankUser(String username, String fullName, String password, Set<Role> roles) {
+        this.username = username;
+        this.fullName = fullName;
+        this.password = password;
+        this.roles = roles;
+        this.status = Status.Enabled;
+    }
 }

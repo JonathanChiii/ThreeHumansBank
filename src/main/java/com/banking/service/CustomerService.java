@@ -6,7 +6,7 @@ import com.banking.model.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    List<Customer> findAllCustomers();
+    List<Customer> findAll();
     Customer findById(Long id);
     Customer findByUsername(String username);
     Customer findByAadhaar(String Aadhaar);

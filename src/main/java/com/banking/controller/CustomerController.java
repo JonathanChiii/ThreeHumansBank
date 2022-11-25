@@ -1,15 +1,25 @@
 package com.banking.controller;
 
+import com.banking.dto.payload.request.SignupRequest;
+import com.banking.dto.payload.response.MessageResponse;
 import com.banking.model.*;
 import com.banking.model.ModelUtility.AccountType;
 import com.banking.model.ModelUtility.ERole;
 import com.banking.model.ModelUtility.Question;
 import com.banking.model.ModelUtility.Status;
 import com.banking.service.AccountService;
+import com.banking.service.BankUserService;
 import com.banking.service.CustomerService;
+import com.banking.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,20 +32,23 @@ public class CustomerController {
     CustomerService customerService;
     @Autowired
     AccountService accountService;
-
-//    @PostMapping("/register")
-//    public Customer register(@RequestBody @Valid CustomerValidation customerValidation) {
-//        return customerService.save(customerValidation);
-//        //ToDO: need to return JWT
-//    }
-
-    //@GetMapping("/authenticate")
-
-//    @PostMapping("/{id}/account")
-//    public Account openAccount(@RequestBody @Valid AccountValidation accountValidation){
-//        return accountService.save(accountValidation);
-//        //ToDO
-//    }
+    @Autowired
+    BankUserService bankUserService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    RoleService roleService;
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
+        if(bankUserService.existsByUsername(signupRequest.getUsername())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: this username is already taken."));
+        }
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.findByName(ERole.Customer));
+        Customer customer = (Customer) new BankUser(signupRequest.getUsername(), signupRequest.getFullName(), passwordEncoder.encode(signupRequest.getPassword()), roles);
+        customerService.save(customer);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
 
     @GetMapping("/test1")
     public Customer test1() {
@@ -66,16 +79,11 @@ public class CustomerController {
         return customerService.save(customer1);
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.PUT)
-    public Customer register(@RequestBody Customer customer){
-        //ToDo
-        return customerService.save(customer);
-    }
-
-    @GetMapping("/getall")
-    public List<Customer> getAllCustomer(){
-        //ToDo
-        return customerService.findAllCustomers();
+    @GetMapping(path = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('Staff')")
+    public ResponseEntity<?> getAllCustomer(){
+        List<Customer> customers = customerService.findAll();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
 }
