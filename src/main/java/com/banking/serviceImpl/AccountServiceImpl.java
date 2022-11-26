@@ -31,7 +31,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findAllAccounts() {
+    public Account findByOwnerAndId(Customer owner, String id) {
+        return accountRepository.findAccountByOwnerAndId(owner, id).orElse(null);
+    }
+
+    @Override
+    public List<Account> findAll() {
         return accountRepository.findAll();
     }
 

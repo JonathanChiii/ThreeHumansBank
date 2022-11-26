@@ -11,7 +11,8 @@ public interface AccountService {
 
     Account findById(String id);
     List<Account> findByOwner(Customer owner);
-    List<Account> findAllAccounts();
+    Account findByOwnerAndId(Customer owner, String id);
+    List<Account> findAll();
     List<Account> findPendingAccounts();
     List<Account> findDisabledAccounts();
     List<Account> findEnabledAccounts();

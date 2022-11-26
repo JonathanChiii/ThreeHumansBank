@@ -4,6 +4,8 @@ package com.banking.controller;
 import com.banking.dto.payload.request.LoginRequest;
 import com.banking.dto.payload.response.JwtResponse;
 import com.banking.dto.payload.response.MessageResponse;
+import com.banking.model.ModelUtility.ERole;
+import com.banking.model.Role;
 import com.banking.security.jwt.JwtUtils;
 import com.banking.security.services.UserDetailsImpl;
 import com.banking.service.BankUserService;
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/3hb")
+@RequestMapping("/auth/")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -44,15 +46,12 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody @Valid LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        if(authentication.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-            List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
-            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                    .body(new JwtResponse(jwtCookie.toString(), userDetails.getId(), userDetails.getUsername(), userDetails.getFullName(), roles));
-        }
-        return ResponseEntity.badRequest().body(new MessageResponse("Authentication failed"));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+        List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .body(new JwtResponse(jwtCookie.toString(), userDetails.getId(), userDetails.getUsername(), userDetails.getFullName(), roles));
     }
 
     @PostMapping("/signout")

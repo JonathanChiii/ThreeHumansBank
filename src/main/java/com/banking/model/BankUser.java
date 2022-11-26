@@ -28,7 +28,7 @@ public class BankUser implements Bank {
     @Column(nullable = false)
     private String fullName;
     @Column(nullable = false)
-    private String password;
+    private transient String password;
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private Status status;

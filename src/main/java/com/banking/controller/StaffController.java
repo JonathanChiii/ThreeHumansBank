@@ -1,7 +1,10 @@
 package com.banking.controller;
 
+import com.banking.dto.AccountValidation;
 import com.banking.dto.ChangeBankUserStatus;
 import com.banking.dto.TransactionValidation;
+import com.banking.dto.payload.request.SignupRequest;
+import com.banking.dto.payload.response.MessageResponse;
 import com.banking.model.*;
 import com.banking.model.ModelUtility.ERole;
 import com.banking.model.ModelUtility.Status;
@@ -9,6 +12,8 @@ import com.banking.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +30,10 @@ public class StaffController {
     @Autowired
     StaffService staffService;
     @Autowired
+    RoleService roleService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
     CustomerService customerService;
     @Autowired
     BeneficiaryService beneficiaryService;
@@ -33,26 +42,19 @@ public class StaffController {
     @Autowired
     TransactionService transactionService;
 
-    @GetMapping("test1")
-    public Staff test1(){
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(new Role(ERole.Customer));
-        roleSet.add(new Role(ERole.Staff));
-        Staff staff = new Staff(null, "CaptainAmerica", "Chris Evans", "0000", Status.Enabled, null, roleSet,null, null, null);
-        return staffService.save(staff);
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.PUT)
-    public Staff register(@RequestBody Staff staff){
-        //ToDo
-        //Need to check if current staff username exists
-        return staffService.save(staff);
-    }
-
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public int authenticate(@RequestBody String username, String password){
-        //ToDo
-        return 1;
+    @PostMapping("/register")
+    @PreAuthorize("hasRole('Manager')")
+    public ResponseEntity<?> registerCustomer(@Valid @RequestBody SignupRequest signupRequest){
+        if(bankUserService.existsByUsername(signupRequest.getUsername())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: this username is already taken."));
+        }
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.findByName(ERole.Customer));
+        roles.add(roleService.findByName(ERole.Staff));
+        Staff staff = new Staff(signupRequest.getUsername(), signupRequest.getFullName(), passwordEncoder.encode(signupRequest.getPassword()), roles);
+        staffService.save(staff);
+        staff.setPassword("****");
+        return new ResponseEntity<>(staff, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/account/:accountNo", method = RequestMethod.GET)

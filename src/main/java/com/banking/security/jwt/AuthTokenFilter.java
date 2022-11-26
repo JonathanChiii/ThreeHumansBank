@@ -50,7 +50,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 // Create Authentication Object from the username
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 // The constructor take 3 params: principle, credential, Collection<GrantedAuthority>
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
