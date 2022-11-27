@@ -38,4 +38,8 @@ public class Staff extends BankUser {
         this.accountsApproved = accountsApproved;
         this.beneficiariesApproved = beneficiariesApproved;
     }
+
+    public Staff(String username, String fullName, String password, Set<Role> roles){
+        super(username, fullName, password, roles);
+    }
 }

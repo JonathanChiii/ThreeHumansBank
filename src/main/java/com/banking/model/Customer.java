@@ -31,10 +31,11 @@ public class Customer extends BankUser {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiarySource")
     private Set<Beneficiary> beneficiaries = new HashSet<>();
 
-    @Column(unique=true, nullable = false)
+    private String phone;
+    @Column(unique=true)
     private String aadhaar;
     private byte[] aadhaarPicture;
-    @Column(unique=true, nullable = false)
+    @Column(unique=true)
     private String PAN;
     private byte[] PANPicture;
 
@@ -47,5 +48,8 @@ public class Customer extends BankUser {
         this.aadhaarPicture = aadhaarPicture;
         this.PAN = PAN;
         this.PANPicture = PANPicture;
+    }
+    public Customer(String username, String fullName, String password, Set<Role> roles){
+        super(username, fullName, password, roles);
     }
 }

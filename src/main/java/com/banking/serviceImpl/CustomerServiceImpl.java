@@ -16,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> findAllCustomers() {
+    public List<Customer> findAll() {
         return customerRepository.findAll();
     }
 
@@ -27,17 +27,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findByUsername(String username) {
-        return customerRepository.findCustomerByUsername(username);
+        return customerRepository.findCustomerByUsername(username).orElse(null);
     }
 
     @Override
     public Customer findByAadhaar(String Aadhaar) {
-        return customerRepository.findCustomerByAadhaar(Aadhaar);
+        return customerRepository.findCustomerByAadhaar(Aadhaar).orElse(null);
     }
 
     @Override
     public Customer findByPAN(String PAN) {
-        return customerRepository.findCustomerByPAN(PAN);
+        return customerRepository.findCustomerByPAN(PAN).orElse(null);
     }
 
     @Override

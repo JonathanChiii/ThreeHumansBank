@@ -23,6 +23,12 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
     }
 
     @Override
+
+    public Beneficiary findByUsername(String username) {
+        return beneficiaryRepository.findBeneficiariesByUsername(username).orElse(null);
+    }
+
+    @Override
     public List<Beneficiary> findByBeneficiarySource(Customer customer) {
         return beneficiaryRepository.findBeneficiariesByBeneficiarySource(customer);
     }
@@ -34,12 +40,12 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
 
     @Override
     public List<Beneficiary> findByApprovedBy(Staff staff) {
-        return beneficiaryRepository.findBeneficiariesByApprovedBy(staff);
+        return beneficiaryRepository.findBeneficiariesByIsApprovedIs(true);
     }
 
     @Override
     public Beneficiary save(Beneficiary beneficiary) {
-            return beneficiaryRepository.save(beneficiary);
+        return beneficiaryRepository.save(beneficiary);
     }
 
     @Override

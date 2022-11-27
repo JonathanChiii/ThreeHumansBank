@@ -1,6 +1,7 @@
 package com.banking.serviceImpl;
 
 import com.banking.model.Manager;
+import com.banking.model.ModelUtility.Status;
 import com.banking.model.Staff;
 import com.banking.repository.StaffRepository;
 import com.banking.service.StaffService;
@@ -15,23 +16,35 @@ public class StaffServiceImpl implements StaffService {
     private StaffRepository staffRepository;
 
     @Override
-    public List<Staff> findAllStaff() {
-        return staffRepository.findAll();
-    }
-
-    @Override
     public Staff findById(Long id) {
         return staffRepository.getReferenceById(id);
     }
 
     @Override
     public Staff findByUsername(String username) {
-        return staffRepository.findStaffByUsername(username);
+
+        return staffRepository.findStaffByUsername(username).orElse(null);
     }
+
+    @Override
+    public List<Staff> findAll() {
+        return staffRepository.findAll();
+    }
+
 
     @Override
     public List<Staff> findByManager(Manager manager) {
         return staffRepository.findStaffByManager(manager);
+    }
+
+    @Override
+    public List<Staff> findEnabledStaff() {
+        return staffRepository.findStaffByStatus(Status.Enabled);
+    }
+
+    @Override
+    public List<Staff> findDisabledStaff() {
+        return staffRepository.findStaffByStatus(Status.Disabled);
     }
 
     @Override

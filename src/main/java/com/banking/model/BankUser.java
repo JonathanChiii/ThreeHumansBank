@@ -1,10 +1,7 @@
 package com.banking.model;
 
-import com.banking.model.ModelUtility.ERole;
 import com.banking.model.ModelUtility.Status;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -31,8 +28,7 @@ public class BankUser implements Bank {
     @Size(max = 30)
     private String fullName;
     @Column(nullable = false)
-    @Size(max = 120)
-    private String password;
+    private transient String password;
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private Status status;
@@ -51,4 +47,12 @@ public class BankUser implements Bank {
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     @NotEmpty
     private Set<Role> roles = new HashSet<>();
+
+    public BankUser(String username, String fullName, String password, Set<Role> roles) {
+        this.username = username;
+        this.fullName = fullName;
+        this.password = password;
+        this.roles = roles;
+        this.status = Status.Enabled;
+    }
 }

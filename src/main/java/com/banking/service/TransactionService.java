@@ -7,6 +7,7 @@ import com.banking.model.Transaction;
 import java.util.List;
 
 public interface TransactionService {
+    Transaction findById(String id);
     List<Transaction> findBySourceAccount(Account account);
     List<Transaction> findByDestAccount(Account account);
     List<Transaction> findByBankUser(BankUser bankUser);

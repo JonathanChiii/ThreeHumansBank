@@ -17,6 +17,11 @@ public class TransactionServiceImpl implements TransactionService {
     TransactionRepository transactionRepository;
 
     @Override
+    public Transaction findById(String id) {
+        return transactionRepository.getReferenceById(id);
+    }
+
+    @Override
     public List<Transaction> findBySourceAccount(Account account) {
         return transactionRepository.findTransactionsBySourceAccount(account);
     }

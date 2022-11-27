@@ -1,17 +1,17 @@
-package com.banking.dto;
+package com.banking.dto.payload.request;
 
 import lombok.*;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserLogin {
-    @NotEmpty
+public class LoginRequest {
+    @NotBlank
     private String username;
-    @NotEmpty
+    @NotBlank
     private String password;
 }

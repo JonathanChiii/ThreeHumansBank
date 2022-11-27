@@ -21,11 +21,9 @@ import java.util.Set;
 @Table(name = "accounts")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@NoArgsConstructor
 public class Account {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
     @GenericGenerator(
@@ -71,4 +69,11 @@ public class Account {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
 
+    public Account(AccountType type, Float balance, Customer owner, Date dateCreated) {
+        this.type = type;
+        this.balance = balance;
+        this.status = Status.Pending;
+        this.owner = owner;
+        this.dateCreated = dateCreated;
+    }
 }

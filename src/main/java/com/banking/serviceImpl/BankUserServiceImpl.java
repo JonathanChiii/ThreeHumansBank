@@ -6,6 +6,7 @@ import com.banking.service.BankUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class BankUserServiceImpl implements BankUserService {
 
@@ -19,12 +20,7 @@ public class BankUserServiceImpl implements BankUserService {
 
     @Override
     public BankUser findByUsername(String username) {
-        return bankUserRepository.findBankUserByUsername(username);
-    }
-
-    @Override
-    public BankUser findByFullName(String fullName) {
-        return bankUserRepository.findBankUserByFullName(fullName);
+        return bankUserRepository.findBankUserByUsername(username).orElse(null);
     }
 
     @Override

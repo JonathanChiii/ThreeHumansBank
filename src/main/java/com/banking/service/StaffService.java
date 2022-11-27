@@ -6,10 +6,13 @@ import com.banking.model.Staff;
 import java.util.List;
 
 public interface StaffService {
-    List<Staff> findAllStaff();
+
     Staff findById(Long id);
     Staff findByUsername(String username);
+    List<Staff> findAll();
     List<Staff> findByManager(Manager manager);
+    List<Staff> findEnabledStaff();
+    List<Staff> findDisabledStaff();
     Staff save(Staff staff);
     Staff update(Staff staff);
 }
